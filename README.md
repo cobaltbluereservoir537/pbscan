@@ -2,7 +2,7 @@
 <p align="center">
   <img src="assets/social-preview.jpg" alt="pbscan — Automated Blind SSRF Scanner">
 </p>
-`pbscan` is an automatic, correlated SSRF/OAST scanner for **authorized security testing**. It uses the PingBack.sh API v1 to create a listener, register every injection attempt, obtain the official protocol payload, poll captured evidence, and map each callback back to the exact parameter, body field, or header that caused it.
+`pbscan` is an automatic, correlated SSRF/OAST scanner for **authorized security testing**. It uses the https://PingBack.sh API v1 to create a listener, register every injection attempt, obtain the official protocol payload, poll captured evidence, and map each callback back to the exact parameter, body field, or header that caused it.
 
 The normal workflow does **not** require a listener hostname, listener dashboard token, callback template, or feed URL.
 
