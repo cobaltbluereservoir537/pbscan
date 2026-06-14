@@ -1,0 +1,20 @@
+# Binaries
+/pbscan
+/pbscan.exe
+/dist/
+
+# Scan data and secrets
+/output/
+*.session.json
+.env
+.env.*
+
+# Editor and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Test/build
+coverage.out
+*.test

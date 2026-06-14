@@ -1,0 +1,25 @@
+{
+  "api_base_url": "https://pingback.sh/api/v1",
+  "authorized_use_accepted": true,
+  "include_request_secrets": false,
+  "output_dir": "output",
+  "threads": 10,
+  "rate": 10,
+  "timeout": "12s",
+  "wait": "20s",
+  "retries": 1,
+  "follow_redirects": false,
+  "insecure_tls": false,
+  "allow_private_targets": false,
+  "user_agent": "pbscan/1.1 (+https://github.com/pingback-sh/pbscan; authorized-security-testing)",
+  "header_names": [
+    "Referer",
+    "Origin",
+    "X-Forwarded-Host",
+    "X-Original-URL",
+    "X-Rewrite-URL",
+    "Forwarded",
+    "Base-URL"
+  ],
+  "max_response_bytes": 1048576
+}

@@ -1,0 +1,48 @@
+name: Bug report
+description: Report a reproducible pbscan defect using a local or authorized test target.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include production credentials, private callback data, or out-of-scope target information.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: pbscan v1.0.0, commit, or container tag
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: OS, architecture, Go version, installation method
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Use a loopback or otherwise authorized fixture.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: authorization
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: The reproduction uses only systems I own or am explicitly authorized to test.
+          required: true

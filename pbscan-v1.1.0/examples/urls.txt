@@ -1,0 +1,3 @@
+# Only use targets covered by your authorization.
+https://target.example/fetch?url=https://example.org
+https://target.example/proxy?destination=https://example.org&id=demo

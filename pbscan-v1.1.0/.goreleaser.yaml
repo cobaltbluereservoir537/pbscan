@@ -1,0 +1,53 @@
+version: 2
+
+project_name: pbscan
+
+before:
+  hooks:
+    - go test ./...
+
+builds:
+  - id: pbscan
+    main: ./cmd/pbscan
+    binary: pbscan
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    ldflags:
+      - >-
+        -s -w
+        -X github.com/pingback-sh/pbscan/internal/app.Version={{.Version}}
+        -X github.com/pingback-sh/pbscan/internal/app.Commit={{.Commit}}
+        -X github.com/pingback-sh/pbscan/internal/app.Date={{.Date}}
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files:
+      - LICENSE
+      - README.md
+      - SECURITY.md
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+
+release:
+  draft: true
