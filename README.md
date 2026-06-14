@@ -10,7 +10,7 @@ The normal workflow does **not** require a listener hostname, listener dashboard
 
 ## 30-second setup
 
-Create a revocable Pro API token in **PingBack.sh → My listeners**, then configure it once:
+Create a revocable Pro API token in **https://PingBack.sh → My listeners**, then configure it once:
 
 ```bash
 pbscan auth --token pba_your_revocable_token --accept-authorized-use
