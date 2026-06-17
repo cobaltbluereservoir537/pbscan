@@ -1,7 +1,0 @@
-POST /api/fetch?preview=true HTTP/1.1
-Host: target.example
-User-Agent: Mozilla/5.0
-Authorization: Bearer REDACTED
-Content-Type: application/json
-
-{"imageUrl":"https://example.org/image.png","options":{"webhook":"https://example.org/hook"}}
